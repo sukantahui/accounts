@@ -10,7 +10,7 @@ use App\Models\User;
 use App\Models\UserType;
 use App\Models\State;
 use App\Models\LedgerType;
-
+use App\Models\Voucher;
 use Illuminate\Support\Str;
 
 class DatabaseSeeder extends Seeder
@@ -133,6 +133,10 @@ class DatabaseSeeder extends Seeder
         //Assets
         Asset::create(['assets_name'=>'Cash','opening_balance'=>0]);
         Asset::create(['assets_name'=>'Bank','opening_balance'=>0]);
+
+        //Voucher
+        Voucher::create(['voucher_name'=>'Receipt']);
+        Voucher::create(['voucher_name'=>'Payment']);
 
 
         $this->command->info('All States are added');
