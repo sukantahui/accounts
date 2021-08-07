@@ -11,6 +11,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\DurationTypeController;
+use App\Http\Controllers\LedgerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -81,8 +82,8 @@ Route::group(array('prefix' => 'dev'), function() {
         Route::patch("/",[StudentController::class, 'update']);
         Route::delete("/{id}",[StudentController::class, 'delete']);
     });
-
-
+    //ledgers
+    Route::post("/ledgers", [LedgerController::class, 'create_ledger']);
     //course
     Route::get("courses",[CourseController::class, 'index']);
     Route::get("courses/{id}",[CourseController::class, 'index_by_id']);
