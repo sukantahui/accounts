@@ -30,13 +30,13 @@ export class AuthComponent implements OnInit {
     const passwordMd5 = md5.appendStr(form.value.password).end();
     // const formPassword = form.value.password;
 
-    authObserable = this.authService.login({email: form.value.email, password: passwordMd5});
+    authObserable = this.authService.login({loginId: form.value.email, loginPassword: passwordMd5});
     authObserable.subscribe(response => {
       // tslint:disable-next-line:triple-equals
       if (response.success === 1){
         this.isLoading = false;
         // tslint:disable-next-line:triple-equals
-        if (response.user.person_type_id == 1){
+        if (response.data.user.userTypeId == 1){
           this.router.navigate(['/owner']).then(r => {});
         }
       }else{

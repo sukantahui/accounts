@@ -9,8 +9,10 @@ import {GlobalVariable} from '../shared/global';
 
 export interface AuthResponseData {
   success: number;
-  token: {headers: object, original: {access_token: string, token_type: string, expires_in: number}, exception: object };
-  user: {id: number, person_name: string,  person_type_id: number};
+  data:{
+    user: {uniqueId: number, userName: string,  userTypeId: number, userTypeName: string};
+    token: string;
+  };
   message: string;
 }
 
@@ -47,10 +49,10 @@ export class AuthService {
       .pipe(catchError(this.handleError), tap(resData => {
         // tslint:disable-next-line:max-line-length
         if (resData.success === 1){
-            const user = new User(resData.user.id,
-              resData.user.person_name,
-              resData.token.original.access_token,
-              resData.user.person_type_id);
+            const user = new User(resData.data.user.uniqueId,
+              resData.data.user.userName,
+              resData.data.token,
+              resData.data.user.userTypeId);
             this.user.next(user); // here two user is used one is user and another user is subject of rxjs
             localStorage.setItem('user', JSON.stringify(user));
           }
