@@ -56,6 +56,9 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
 
 
 
+Route::post("/ledgers", [LedgerController::class, 'create_ledger']);
+Route::get("/incomeLedgers", [LedgerController::class, 'get_income']);
+Route::get("/expenditureLedgers", [LedgerController::class, 'get_expenditure']);
 
 Route::group(array('prefix' => 'dev'), function() {
 
@@ -65,7 +68,7 @@ Route::group(array('prefix' => 'dev'), function() {
     //ledgers
     Route::post("/ledgers", [LedgerController::class, 'create_ledger']);
     Route::get("/incomeLedger", [LedgerController::class, 'get_income']);
-    Route::get("/expenditureLedger", [LedgerController::class, 'get_expenditure']);
+    Route::get("/expenditureLedgers", [LedgerController::class, 'get_expenditure']);
 
 
 
