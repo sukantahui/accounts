@@ -23,14 +23,14 @@ export class LedgerService {
 
   constructor(private http: HttpClient) {
 
-    this.http.get(GlobalVariable.BASE_API_URL + '/incomeLedgers')
+    this.http.get(GlobalVariable.BASE_API_URL + '/dev/incomeLedgers')
       .pipe(catchError(this.handleError), tap((response: {success: number, data: Ledger[]}) => {
         const {data} = response;
         this.incomeLedgers = data;
         this.incomeLedgerSubject.next([...this.incomeLedgers]);
       })).subscribe();
 
-    this.http.get(GlobalVariable.BASE_API_URL + '/expenditureLedgers')
+    this.http.get(GlobalVariable.BASE_API_URL + '/dev/expenditureLedgers')
       .pipe(catchError(this.handleError), tap((response: {success: number, data: Ledger[]}) => {
         const {data} = response;
         this.expenditureLedgers = data;
@@ -71,7 +71,7 @@ export class LedgerService {
 
   saveLedger(ledgerData) {
     // tslint:disable-next-line:max-line-length
-    return this.http.post<{success: number, data: Ledger}>(GlobalVariable.BASE_API_URL + '/ledgers', ledgerData)
+    return this.http.post<{success: number, data: Ledger}>(GlobalVariable.BASE_API_URL + '/dev/ledgers', ledgerData)
       .pipe(catchError(this.handleError), tap((response: {success: number, data: Ledger}) => {
         if ( response.data.ledger_type_id === 1) {
           this.incomeLedgers.unshift( response.data);

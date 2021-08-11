@@ -16,7 +16,7 @@ export class AssetService {
   assets: Asset[] = [];
   assetsSubject = new Subject<Asset[]>();
   constructor(private http: HttpClient, private router: Router) {
-    this.http.get(GlobalVariable.BASE_API_URL + '/assets')
+    this.http.get(GlobalVariable.BASE_API_URL + '/dev/assets')
       .pipe(catchError(this.handleError), tap((response: {success: number, data: Asset[]}) => {
         const {data} = response;
         this.assets = data;

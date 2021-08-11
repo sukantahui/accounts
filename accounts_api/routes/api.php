@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AssetController;
 use App\Http\Controllers\FeesModeTypeController;
 use App\Http\Controllers\StateController;
 use App\Http\Controllers\StudentCourseRegistrationController;
@@ -8,9 +9,6 @@ use App\Http\Controllers\TransactionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\StudentController;
-use App\Http\Controllers\CourseController;
-use App\Http\Controllers\DurationTypeController;
 use App\Http\Controllers\LedgerController;
 use App\Models\Ledger;
 use App\Models\LedgerType;
@@ -56,62 +54,30 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
 
 
 
-Route::post("/ledgers", [LedgerController::class, 'create_ledger']);
-Route::get("/incomeLedgers", [LedgerController::class, 'get_income']);
-Route::get("/expenditureLedgers", [LedgerController::class, 'get_expenditure']);
+
 
 Route::group(array('prefix' => 'dev'), function() {
+    Route::get('/incomeLedgers', [LedgerController::class,'get_income']);
+    Route::get('/expenditureLedgers', [LedgerController::class,'get_expenditure']);
+    Route::get('/assets',[AssetController::class,'index']);
 
-    Route::group(array('prefix' => 'students'), function() {
+    // transaction
+    Route::post('/incomeTransactions',[TransactionController::class,'saveIncomeTransaction']);
+    Route::get('/incomeTransactions',[TransactionController::class,'getIncomeTransactions']);
 
-    });
-    //ledgers
-    Route::post("/ledgers", [LedgerController::class, 'create_ledger']);
-    Route::get("/incomeLedger", [LedgerController::class, 'get_income']);
-    Route::get("/expenditureLedgers", [LedgerController::class, 'get_expenditure']);
+    Route::post('/expenditureTransactions',[TransactionController::class,'saveExpenditureTransaction']);
+    Route::get('/expenditureTransactions', [TransactionController::class,'getExpenditureTransactions']);
 
+    Route::get('/transactionYears', [TransactionController::class,'get_transaction_years']);
 
+    Route::get('/incomeLedgersTotal/{year}',[TransactionController::class,'get_income_ledgers_group_total_by_year']);
+    Route::get('/incomeLedgersTotal/{year}/{month}',[TransactionController::class,'get_income_ledgers_group_total_by_year_n_month']);
 
-
-
-
-
-    //course
-
-    Route::get("states",[StateController::class, 'index']);
-    Route::get("states/{id}",[StateController::class, 'index_by_id']);
-
-    //Fees Modes
-    Route::get("feesModeTypes",[FeesModeTypeController::class, 'index']);
-    Route::get("feesModeTypes/{id}",[FeesModeTypeController::class, 'index_by_id']);
+    Route::get('/expenditureLedgersTotal/{year}',[TransactionController::class,'get_expenditure_ledgers_group_total_by_year']);
+    Route::get('/expenditureLedgersTotal/{year}/{month}',[TransactionController::class,'get_expenditure_ledgers_group_total_by_year_n_month']);
 
 
-
-
-    Route::get("subjects",[SubjectController::class, 'index']);
-
-
-
-
-
-    Route::get("logout",[UserController::class,'logout']);
-
-    Route::get("users",[UserController::class,'index']);
-
-
-
-    //transactions
-    Route::group(array('prefix' => 'transactions'), function() {
-        Route::post('/incomeTransactions', [TransactionController::class, 'saveIncomeTransaction']);
-        Route::get('/incomeTransactions', [TransactionController::class, 'getIncomeTransactions']);
-        Route::post('/expenditureTransactions', [TransactionController::class, 'saveExpenditureTransaction']);
-        Route::get('/getExpenditureTransactions', [TransactionController::class, 'getExpenditureTransactions']);
-        Route::get('/getTransactionYears', [TransactionController::class, 'get_transaction_years']);
-        Route::get('/getIncomeLedgersGroupTotal/{year}', [TransactionController::class, 'get_income_ledgers_group_total_by_year']);
-        Route::get('/incomeLedgersTotal/{year}/{month}', [TransactionController::class, 'get_income_ledgers_group_total_by_year_n_month']);
-        Route::get('/expenditureLedgersTotal/{year}', [TransactionController::class, 'get_expenditure_ledgers_group_total_by_year']);
-        Route::get('/expenditureLedgersTotal/{year}/{month}', [TransactionController::class, 'get_expenditure_ledgers_group_total_by_year_n_month']);
-        Route::get('/cashBook', [TransactionController::class, 'getCashBook']);
-    });
+    Route::post('/ledgers', [LedgerController::class,'create']);
+    Route::get('/cashBook', [LedgerController::class,'getCashBook']);
 });
 

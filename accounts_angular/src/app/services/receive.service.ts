@@ -32,14 +32,14 @@ export class ReceiveService {
       console.log(this.userData);
     }
 
-    this.http.get(GlobalVariable.BASE_API_URL + '/incomeLedgers')
+    this.http.get(GlobalVariable.BASE_API_URL + '/dev/incomeLedgers')
       .pipe(catchError(this.handleError), tap((response: {success: number, data: Ledger[]}) => {
         const {data} = response;
         this.incomeLedgers = data;
         this.incomeLedgerSubject.next([...this.incomeLedgers]);
       })).subscribe();
 
-    this.http.get(GlobalVariable.BASE_API_URL + '/incomeTransactions')
+    this.http.get(GlobalVariable.BASE_API_URL + '/dev/incomeTransactions')
       .pipe(catchError(this.handleError), tap((response: {success: number, data: Transaction[]}) => {
         const {data} = response;
         this.incomeTransactions = data;
@@ -79,7 +79,7 @@ export class ReceiveService {
   }
 
   saveIncomeTransaction(transactionFormValue){
-    return this.http.post<{success: number, data: Transaction}>(GlobalVariable.BASE_API_URL + '/incomeTransactions', transactionFormValue)
+    return this.http.post<{success: number, data: Transaction}>(GlobalVariable.BASE_API_URL + '/dev/incomeTransactions', transactionFormValue)
       .pipe(catchError(this.handleError), tap((response: {success: number, data: Transaction}) => {
           this.incomeTransactions.unshift( response.data);
           this.incomeTransactionSubject.next([...this.incomeTransactions]);
