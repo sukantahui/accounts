@@ -139,7 +139,7 @@ class TransactionController extends Controller
             $transaction->amount = $input->amount;
             $transaction->voucher_id = $input->voucher_id;
             $transaction->particulars = $input->particulars;
-            $transaction->user_id = $input->user_id;
+            $transaction->user_id = 1;
             $transaction->save();
             DB::commit();
 

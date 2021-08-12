@@ -29,14 +29,14 @@ export class PaymentService {
       return;
     }
 
-    this.http.get(GlobalVariable.BASE_API_URL + '/expenditureLedgers')
+    this.http.get(GlobalVariable.BASE_API_URL + '/dev/expenditureLedgers')
       .pipe(catchError(this.handleError), tap((response: {success: number, data: Ledger[]}) => {
         const {data} = response;
         this.expenditureLedgers = data;
         this.expenditureLedgerSubject.next([...this.expenditureLedgers]);
       })).subscribe();
 
-    this.http.get(GlobalVariable.BASE_API_URL + '/expenditureTransactions')
+    this.http.get(GlobalVariable.BASE_API_URL + '/dev/expenditureTransactions')
       .pipe(catchError(this.handleError), tap((response: {success: number, data: Transaction[]}) => {
         const {data} = response;
         this.expenditureTransactions = data;
@@ -77,7 +77,7 @@ export class PaymentService {
 
   saveExpenditureTransaction(transactionFormValue) {
     // tslint:disable-next-line:max-line-length
-    return this.http.post<{success: number, data: Transaction}>(GlobalVariable.BASE_API_URL + '/expenditureTransactions', transactionFormValue)
+    return this.http.post<{success: number, data: Transaction}>(GlobalVariable.BASE_API_URL + '/dev/expenditureTransactions', transactionFormValue)
       .pipe(catchError(this.handleError), tap((response: {success: number, data: Transaction}) => {
         this.expenditureTransactions.unshift( response.data);
         this.expenditureTransactionSubject.next([...this.expenditureTransactions]);

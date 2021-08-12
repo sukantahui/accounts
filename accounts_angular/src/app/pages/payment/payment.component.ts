@@ -37,7 +37,7 @@ export class PaymentComponent implements OnInit {
 
   // tslint:disable-next-line:max-line-length
   constructor(private http: HttpClient, private paymentService: PaymentService, private ledgerService: LedgerService, private asstService: AssetService, private dataService: DataService) {
-    this.http.get(GlobalVariable.BASE_API_URL + '/expenditureLedgers').subscribe((response: {success: number, data: any[]}) => {
+    this.http.get(GlobalVariable.BASE_API_URL + '/dev/expenditureLedgers').subscribe((response: {success: number, data: any[]}) => {
       // this.data.push(response.data);
       this.data = response.data;
       console.log(this.data);

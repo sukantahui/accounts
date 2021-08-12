@@ -77,7 +77,7 @@ Route::group(array('prefix' => 'dev'), function() {
     Route::get('/expenditureLedgersTotal/{year}/{month}',[TransactionController::class,'get_expenditure_ledgers_group_total_by_year_n_month']);
 
 
-    Route::post('/ledgers', [LedgerController::class,'create']);
+    Route::post('/ledgers', [LedgerController::class,'create_ledger']);
     Route::get('/cashBook', [LedgerController::class,'getCashBook']);
 });
 
