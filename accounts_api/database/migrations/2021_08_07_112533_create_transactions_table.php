@@ -19,7 +19,7 @@ class CreateTransactionsTable extends Migration
             $table->date('transaction_date')->nullable(false);
             $table->string('transaction_number',20)->nullable(false);
 
-            $table->foreignId('ledger_id')->nullable(false)->references('id')->on('users')->onDelete('cascade');
+            $table->foreignId('ledger_id')->nullable(false)->references('id')->on('ledgers')->onDelete('cascade');
             $table->foreignId('asset_id')->nullable(false)->references('id')->on('assets')->onDelete('cascade');
             $table->foreignId('voucher_id')->nullable(false)->references('id')->on('vouchers')->onDelete('cascade');
 
