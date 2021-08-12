@@ -31,23 +31,20 @@ class DatabaseSeeder extends Seeder
         UserType::create(['user_type_name' => 'Worker']);           #5
         UserType::create(['user_type_name' => 'Accountant']);       #6
         UserType::create(['user_type_name' => 'Office Staff']);     #7
-        UserType::create(['user_type_name' => 'Student']);          #8
+
 
         //owner
-        User::create(['user_name'=>'Tanusree Hui','mobile1'=>'9836444999','mobile2'=>'100'
-        ,'email'=>'owner','password'=>"81dc9bdb52d04dc20036dbd8313ed055",'user_type_id'=>1]);
+        User::create(['user_name'=>'Avik','mobile1'=>'9836444999','mobile2'=>'100'
+        ,'email'=>'avik','password'=>"81dc9bdb52d04dc20036dbd8313ed055",'user_type_id'=>1]);
 
         //developer
         User::create(['user_name'=>'Sukanta Hui','mobile1'=>'9836444999','mobile2'=>'101'
             ,'email'=>'developer','password'=>"81dc9bdb52d04dc20036dbd8313ed055",'user_type_id'=>2]);
 
         //admin
-        User::create(['user_name'=>'Sreeparna Das','mobile1'=>'9836444999','mobile2'=>'102'
+        User::create(['user_name'=>'SD','mobile1'=>'9836444999','mobile2'=>'102'
             ,'email'=>'admin','password'=>"81dc9bdb52d04dc20036dbd8313ed055",'user_type_id'=>3]);
 
-        //student
-        User::create(['user_name'=>'Coder Student','mobile1'=>'9836444999','mobile2'=>'108'
-            ,'email'=>'student','password'=>"81dc9bdb52d04dc20036dbd8313ed055",'user_type_id'=>8]);
 
         //storing state
         State::insert([
